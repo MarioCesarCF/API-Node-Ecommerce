@@ -1,22 +1,44 @@
-const ProductRepository = require('../database/repositories/productsRepository');
+const Product = require('../model/productSchema');
+const conection = require('../config/conection');
 
-class ProductService {
-  constructor() {    
-    this.repository = new ProductRepository(); 
-    console.log(this.repository)  
-  }
+conection();
 
-  async getAllProducts() {
-    return this.repository.showAll();
-  }
-
-  async getProduct(id) {
-    return this.repository.showOneProduct(id);
-  }
-
-  async addNewProduct(id, name, image, price, description, information, datasheet, avaliations, doubts) {
-    return this.repository.addOneProduct(id, name, image, price, description, information, datasheet, avaliations, doubts);
-  }
+exports.createProduct = async (product) => {  
+  return await Product.create(product);
 };
 
-module.exports = ProductService;
+exports.getAll = async () => {  
+  return await Product.find();
+};
+
+exports.getByName = async (name) => {  
+  return await Product.findOne(name);
+};
+
+// const ProductRepository = require('../database/repositories/productsRepository');
+
+
+// class ProductService {
+//   constructor() {    
+//     this.repository = new ProductRepository(); 
+//     console.log(this.repository)  
+//   }
+
+//   async getAllProducts() {
+//     return this.repository.showAll();
+//   }
+
+//   async getProduct(id) {
+//     return this.repository.showOneProduct(id);
+//   }
+
+//   async addNewProduct(id, name, image, price, description, information, datasheet, avaliations, doubts) {
+//     return this.repository.addOneProduct(id, name, image, price, description, information, datasheet, avaliations, doubts);
+//   }
+
+  
+
+// };
+
+// module.exports = ProductService;
+

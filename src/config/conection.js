@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-function conection() {
+const conection = async () => {
   let username = process.env.NODE_USERNAME;
   let password = process.env.NODE_PASSWORD;
   const URL = `mongodb+srv://${username}:${password}@restcluster.uc7clml.mongodb.net/?retryWrites=true&w=majority`
@@ -30,4 +30,4 @@ function conection() {
 
 conection();
 
-module.exports = { conection };
+module.exports = conection;

@@ -1,17 +1,30 @@
 const ProductService = require('../services/productService');
 
-exports.get = async (req, res, next) => {
-  const payload = await new ProductService().getAllProducts();
-  res.status(200).send(payload);
+exports.create = async (req, res, next) => {
+  try {
+    const result = await ProductService.createProduct(req.body);
+    res.status(201).json({ success: true, data: result });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getAll = async (req, res, next) => {
+  try {
+    const products = await ProductService.getAll();
+    res.status(200).json({ data: products, status: 'success' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 exports.getOne = async (req, res, next) => {
-  const payload = await new ProductService().getProduct(req.params.id);
-  res.status(200).json(payload);
-}
+  try {
+    const {name} = req.params;
+    const product = await ProductService.getByName({name});
+    res.status(200).json({ data: product, status: 'success' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
-exports.postOne = async (req, res, next) => {
-  const { id, name, image, price, description, information, datasheet, avaliations, doubts } = req.body;
-  const result = await new ProductService().addNewProduct(id, name, image, price, description, information, datasheet, avaliations, doubts);
-  res.send(result);
-}

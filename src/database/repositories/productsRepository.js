@@ -1,4 +1,5 @@
 const db = require('../../config/conection');
+const Product = require('../../model/productSchema');
 
 class ProductsRepository {
 
@@ -18,8 +19,16 @@ class ProductsRepository {
 
   async showAll() {
     const conn = await db.conection();
+    
+    const users = await conn.users.find(query, retorno);
+    
+    return users;
+  }
+
+  async showOneProduct(id) {
+    const conn = await db.conection();
     const query = { name: "Monitor 22" }
-    const retorno = { id: 1,
+    const retorno = { _id: 1,
             name: 1,
             image: 1,
             price: 1,
@@ -28,32 +37,26 @@ class ProductsRepository {
             datasheet: 1,
             avaliations: 1,
             doubts: 1 }
-    const users = await conn.users.find(query, retorno);
+    const users = await conn.users.findOne(query, retorno);
     
     return users;
   }
 
-  async showOneProduct(id) {
-    const result = this.products.find((element) => {
-      return element.id === Number(id);
-    })
-    return result;
-  }
-
-  async addOneProduct(id, name, image, price, description, information, datasheet, avaliations, doubts) {
-    const product = {
-      id: id,
-      name: name,
-      image: image,
-      price: price,
-      description: description,
-      information: information,
-      datasheet: datasheet,
-      avaliations: avaliations,
-      doubts: doubts
-    };
-    this.products.push(product);
-    return this.products
+  async addOneProduct(product) {
+    return await Product.create(product);
+    // const product = {
+    //   id: id,
+    //   name: name,
+    //   image: image,
+    //   price: price,
+    //   description: description,
+    //   information: information,
+    //   datasheet: datasheet,
+    //   avaliations: avaliations,
+    //   doubts: doubts
+    // };
+    // this.products.push(product);
+    // return this.products
   }
 }
 
