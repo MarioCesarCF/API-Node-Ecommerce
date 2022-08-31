@@ -63,7 +63,7 @@ describe("Products", () => {
         console.log(product.id)
         chai
           .request(app)
-          .get("/product" + product.id)
+          .get("/product/" + product.id)
           .send(product)
           .end((err, res) => {
             res.should.have.status(200);
@@ -89,7 +89,7 @@ describe("Products", () => {
         console.log(product.id);
         chai
           .request(app)
-          .put("/product" + product.id)
+          .put("/product/" + product.id)
           .send({
             name: "Teclado",
             img: "https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
@@ -123,7 +123,7 @@ describe("Products", () => {
         console.log(product.id);
         chai
           .request(app)
-          .delete("/product" + product.id)
+          .delete("/product/" + product.id)
           .end((err, res) => {
             res.should.have.status(200);
             res.body.data.should.be.a("object");
