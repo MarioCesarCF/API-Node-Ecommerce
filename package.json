@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./bin/server.js",
+    "start": "node ./bin/server.js",
     "dev": "nodemon ./bin/server.js",
     "test": "mocha --timeout 10000"
   },
