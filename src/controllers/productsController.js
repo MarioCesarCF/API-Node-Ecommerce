@@ -20,11 +20,30 @@ exports.getAll = async (req, res, next) => {
 
 exports.getOne = async (req, res, next) => {
   try {
-    const {name} = req.params;
-    const product = await ProductService.getByName({name});
+    const {id} = req.params;
+    const product = await ProductService.getById(id);
     res.status(200).json({ data: product, status: 'success' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
+exports.update = async (req, res, next) => {
+  try {
+    const {id} = req.params;
+    const product = await ProductService.putById(id, req.body);
+    res.status(200).json({ data: product, status: 'success' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.delete = async (req, res, next) => {
+  try {
+    const {id} = req.params;
+    const product = await ProductService.deleteById(id);
+    res.status(200).json({ data: product, status: 'success' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

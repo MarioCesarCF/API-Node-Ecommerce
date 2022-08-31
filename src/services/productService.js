@@ -11,8 +11,16 @@ exports.getAll = async () => {
   return await Product.find();
 };
 
-exports.getByName = async (name) => {  
-  return await Product.findOne(name);
+exports.getById = async (id) => {  
+  return await Product.findById(id);
+};
+
+exports.putById = async (id, newData) => {  
+  return await Product.findByIdAndUpdate(id, newData);
+};
+
+exports.deleteById = async (id) => {  
+  return await Product.findByIdAndDelete(id);
 };
 
 // const ProductRepository = require('../database/repositories/productsRepository');
