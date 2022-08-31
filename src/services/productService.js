@@ -1,4 +1,4 @@
-const Product = require('../model/productSchema');
+const Product = require('../models/Product');
 const conection = require('../config/conection');
 
 conection();
