@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 
 const Product = mongoose.model('Product', {
-  _id: {
-    type: Number,
-    required: true
-  },
   name: {
     type: String,
     required: true
@@ -16,8 +12,16 @@ const Product = mongoose.model('Product', {
   price: {
     type: Number,
     required: true
+  },
+  description: {
+    altura: {type: Number, required: false},
+    largura: {type: Number, required: false},
+    cor: {type: String, required: false},
   }
 })
+
+module.exports = Product;
+
 // const ProductSchema = new mongoose.Schema({
 //   _id: {
 //     type: Number,
@@ -36,5 +40,3 @@ const Product = mongoose.model('Product', {
 //     required: true
 //   }
 // })
-
-module.exports = Product;
