@@ -8,7 +8,8 @@ require('dotenv').config();
 const conection = async () => {
   let username = process.env.NODE_USERNAME;
   let password = process.env.NODE_PASSWORD;
-  const URL = `mongodb+srv://${username}:${password}@restcluster.uc7clml.mongodb.net/produtos?retryWrites=true&w=majority`
+  let host = process.env.NODE_HOST;
+  const URL = `mongodb+srv://${username}:${password}@${host}/produtos?retryWrites=true&w=majority`
 
   if(global.connection && global.connection.state !== 'disconnected') {
     return global.connection;
