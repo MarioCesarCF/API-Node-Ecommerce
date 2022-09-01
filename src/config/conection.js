@@ -4,13 +4,15 @@ require('dotenv').config();
 /*
   Arquivo que faz a conexão com o MongoDB Atlas.
   importa o mongoose e o dotenv para poder usar variáveis de ambiente
+
+  url de conexão `mongodb+srv://${username}:${password}@${host}/${database}?retryWrites=true&w=majority`
 */
 const conection = async () => {
-  let username = process.env.NODE_USERNAME;
-  let password = process.env.NODE_PASSWORD;
-  let host = process.env.NODE_HOST;
-  const URL = `mongodb+srv://${username}:${password}@${host}/produtos?retryWrites=true&w=majority`
-
+  const username = process.env.NODE_USERNAME;
+  const password = process.env.NODE_PASSWORD;
+  const host = process.env.NODE_HOST;
+  const database = process.env.NODE_DB;
+  const URL = process.env.DATABASE_URL;
   if(global.connection && global.connection.state !== 'disconnected') {
     return global.connection;
   }
