@@ -1,3 +1,13 @@
+/*
+
+Arquivo que cria todas as rotas do CRUD
+
+importa o express, Router do express e os métodos do controller
+cria cada uma das rotas passando os parâmetros(fim da rota e params, se tiver, metodo do controler)
+exporta o router
+
+*/
+
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productsController');

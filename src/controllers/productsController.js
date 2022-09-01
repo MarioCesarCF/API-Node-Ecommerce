@@ -1,3 +1,11 @@
+/*
+Arquivo que realiza o controle dos métodos do CRUD recebe o método do serviço e retorna sucesso ou erro
+
+importa os serviços
+exporta cada um dos metodos criados
+cada metodo criado é async e o retorno é await
+*/
+
 const ProductService = require('../services/productService');
 
 exports.create = async (req, res, next) => {

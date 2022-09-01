@@ -1,3 +1,14 @@
+/*
+
+
+
+
+Este arquivo não está sendo usado nesta API, nele era criada a classe da entidade, no caso Produto, que recebia um construtor com todas as características de cada produto e os metodos do CRUD, mas foi abandonado deixando a criação da estrutura dos produtos com o models e dos métodos com o service.
+
+
+
+
+*/
 const db = require('../../config/conection');
 const Product = require('../../model/productSchema');
 

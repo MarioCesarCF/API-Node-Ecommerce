@@ -1,3 +1,12 @@
+/*
+
+Arquivo que cria e exporta os metodos usados no controler
+importa o models e a connection
+executa a conection
+cria os metodos do CRUD usando os metodos do mongo para salvar, mostrar, atualizar e deletar os dados e já exporta esse metodos criados
+
+*/
+
 const Product = require('../models/Product');
 const conection = require('../config/conection');
 
