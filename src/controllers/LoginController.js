@@ -11,6 +11,7 @@ class LoginController extends HttpController {
         //autenticar login
         const body = req.body;
         //verifica se o body esta vazio ou se o usuário não digitou login ou senha
+        //**TODO: testar requisição conectado ao BD**
         if (!body || !body.login || !body.senha) {
             return res.status(401).json({
                 status: 401,

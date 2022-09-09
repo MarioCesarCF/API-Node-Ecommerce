@@ -17,6 +17,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
+
 app.use(cors());
 
 app.use((req, res, next) => {
@@ -30,10 +31,20 @@ app.use((req, res, next) => {
 const index = require('./routers/index');
 const productRoute = require('./routers/productRoute');
 
+//importando classe LoginController
+const LoginController = require("./controllers/LoginController");
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 app.use('/', index);
 app.use('/product', productRoute);
+
+
+//criando um objeto da classe LoginController e passando a instancia do express como parametro
+//a instancia do express será usada no método construtor herdado da classe mãe
+const carregarLogin = () => {
+    new LoginController(app);
+}
 
 module.exports = app;
