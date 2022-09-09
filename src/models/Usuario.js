@@ -48,5 +48,16 @@ const UsuarioSchema = new Schema ({
 
 });
 
+//criptografando a senha do usuário com o md5 e sobrescrevendo no atributo senha
+UsuarioSchema.pre('save', function (next) {
+    this.senha = md5(this.senha);
+    next();
+});
+
+//importando o Schema para um model do mongoose
+const Usuario = mongoose.model('usuarios');
+// sera criada uma collection com o nome usuarios no MOngoDB
+
+module.exports = Usuario;
 
 
