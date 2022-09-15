@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>formulario teste</h1>
+    <input type="text" placeholder="nome produto" id="nome">
+    <input type="text" placeholder="url img" id="img">
+    <input type="text" placeholder="preço" id="preço">
+    <input type="number" placeholder="polegadas" id="polegadas">
+    <input type="text" placeholder="cor" id="cor">
+    <input type="number" placeholder="nota" id="nota">
+    <input type="button" value="Cadastrar" onclick="cadastrar()">
+
+    <script>
+function cadastrar() {
+    const nome = document.getElementById('nome');
+    const img = document.getElementById('img');
+    const preco = document.getElementById('preço');
+    const polegadas = document.getElementById('polegadas');
+    const cor = document.getElementById('cor');
+    const nota = document.getElementById('nota');
+
+    const update = {
+        nome: nome.value,
+        img: img.value,
+        preco: preco.value,
+        polegadas: polegadas.value,
+        cor: cor.value,
+        nota: nota.value        
+    };
+    
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(update),
+    };   
+
+        fetch(`https://api-node-teste.herokuapp.com/product`, options)
+        .then(data => {
+            if(!data.ok) {
+                throw Error(data.status);
+            }
+            return data.json();
+        })
+        .then(update => {console.log(update);})
+        .catch(e => {console.log(e);});
+}
+
+    </script>
+</body>
+</html>
+
