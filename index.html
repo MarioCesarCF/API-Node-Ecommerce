@@ -1,59 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
+
 <body>
-    <h1>formulario teste</h1>
-    <input type="text" placeholder="nome produto" id="nome">
-    <input type="text" placeholder="url img" id="img">
-    <input type="text" placeholder="preço" id="preço">
-    <input type="number" placeholder="polegadas" id="polegadas">
-    <input type="text" placeholder="cor" id="cor">
-    <input type="number" placeholder="nota" id="nota">
-    <input type="button" value="Cadastrar" onclick="cadastrar()">
+  <h1>formulario teste</h1>
+  <input type="text" placeholder="nome produto" id="nome">
+  <input type="text" placeholder="url img" id="img">
+  <input type="text" placeholder="preço" id="preço">
+  <input type="number" placeholder="polegadas" id="polegadas">
+  <input type="text" placeholder="cor" id="cor">
+  <input type="number" placeholder="nota" id="nota">
+  <input type="button" value="Cadastrar" onclick="cadastrar()">
+  <br>
+  <br>
+  <input type="button" value="Ver Produtos" onclick="ver()">
+  <ul id="tabela"></ul>
+  <br>
+  <br>
+  <input type="text" placeholder="Id" id="id_product">
+  <input type="button" value="Ver Produtos" onclick="verUm()">
+  <ul id="tabelaDeUm"></ul>
+  
+  <script>
+    function cadastrar() {
+      const nome = document.getElementById('nome');
+      const img = document.getElementById('img');
+      const preco = document.getElementById('preço');
+      const polegadas = document.getElementById('polegadas');
+      const cor = document.getElementById('cor');
+      const nota = document.getElementById('nota');
 
-    <script>
-function cadastrar() {
-    const nome = document.getElementById('nome');
-    const img = document.getElementById('img');
-    const preco = document.getElementById('preço');
-    const polegadas = document.getElementById('polegadas');
-    const cor = document.getElementById('cor');
-    const nota = document.getElementById('nota');
-
-    const update = {
-        nome: nome.value,
+      const update = {
+        name: nome.value,
         img: img.value,
-        preco: preco.value,
-        polegadas: polegadas.value,
-        cor: cor.value,
-        nota: nota.value        
-    };
-    
-    const options = {
+        price: preco.value,
+        description: {
+          polegadas: polegadas.value,
+          cor: cor.value,
+          nota: nota.value
+        }
+      };
+
+      const options = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(update),
-    };   
+      };
 
-        fetch(`https://api-node-teste.herokuapp.com/product`, options)
+      fetch(`https://api-node-teste.herokuapp.com/product`, options)
         .then(data => {
-            if(!data.ok) {
-                throw Error(data.status);
-            }
-            return data.json();
+          if (!data.ok) {
+            throw Error(data.status);
+          }
+          return data.json();
         })
-        .then(update => {console.log(update);})
-        .catch(e => {console.log(e);});
-}
+        .then(update => { console.log(update); })
+        .catch(e => { console.log(e); });
+    }
 
-    </script>
+    function ver() {
+      fetch(`https://api-node-teste.herokuapp.com/product`)
+        .then((response) => { return response.json() })
+        .then((data) => {
+          const ul = document.querySelector('#tabela')
+          ul.innerHTML = "";
+          
+          data.data.forEach((item) => {
+            ul.innerHTML += `
+                    <div class="mostraProdutos">
+                        <div class="mostra">
+                            <p>Id: ${item._id}</p>
+                            <p>Nome: ${item.name}</p>
+                            <p>Imagem: ${item.img}</p>
+                            <p>Preço: ${item.price}</p>
+                            <p>Data de Coleta: ${item.description}</p>
+                        </div>
+                    </div>`
+          })
+        })
+        .catch(e => { console.log(e); });
+    }
+
+    function verUm() {
+      const id_product = document.getElementById('id_product').value;
+
+      fetch(`https://api-node-teste.herokuapp.com/product/${id_product}`)
+        .then((response) => { return response.json() })
+        .then((data) => {
+          const ul = document.querySelector('#tabelaDeUm')
+          ul.innerHTML = "";
+
+          ul.innerHTML += `
+                    <div class="mostraProduto">
+                        <div class="mostra">
+                            <p>Id: ${data.data._id}</p>
+                            <p>Nome: ${data.data.name}</p>
+                            <p>Imagem: <a href="${data.data.img}" target="_blanck">IMG</a></p>
+                            <p>Preço: ${data.data.price}</p>
+                            <p>Data de Coleta: ${data.data.description}</p>
+                        </div>
+                    </div>`
+        })
+        .catch(e => { console.log(e); });
+    }
+
+  </script>
 </body>
-</html>
 
+</html>
