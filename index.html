@@ -74,15 +74,22 @@
           ul.innerHTML = "";
           
           data.data.forEach((item) => {
+            let properties = '';
+            Object.entries(item.description).forEach(([key, value])=>{
+              properties += `${key}:${value} <br>`;
+            });
+            console.log(properties)
             ul.innerHTML += `
                     <div class="mostraProdutos">
-                        <div class="mostra">
-                            <p>Id: ${item._id}</p>
-                            <p>Nome: ${item.name}</p>
-                            <p>Imagem: ${item.img}</p>
-                            <p>Preço: ${item.price}</p>
-                            <p>Data de Coleta: ${item.description}</p>
-                        </div>
+                        <ul class="mostra">
+                            <li>Id: ${item._id}</li>
+                            <li>Nome: ${item.name}</li>
+                            <li>Imagem: <a href="${item.img}" target="_blanck">IMG</a></li>
+                            <li>Preço: ${item.price}</li>
+                            <li>Informações: 
+                              ${properties}</li>
+                        </ul>
+                        <br>
                     </div>`
           })
         })
