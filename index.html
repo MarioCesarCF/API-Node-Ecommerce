@@ -80,18 +80,22 @@
           data.data.forEach((item) => {
             let properties = '';
             Object.entries(item.description).forEach(([key, value])=>{
-              //na linha abaixo as propriedades e valores são passados. Buscar meios mais interessantes de fazer isso.
-              properties += `${key}: ${value} <br>`;
+              //validação para mostrar apenas propriedades que tenha algum value.
+              if(!value) {
+                return
+              }
+              //na linha abaixo as propriedades e valores são passados. Buscar meios mais interessantes de fazer isso.              
+              properties += `${key}: ${value} / `;
             });
-            console.log(properties)
+            
             ul.innerHTML += `
                     <div class="mostraProdutos">
                         <ul class="mostra">
-                            <li>Id: ${item._id}</li>
-                            <li>Nome: ${item.name}</li>
-                            <li>Imagem: <img src="${item.img}" alt=""></li>
-                            <li>Preço: ${item.price}</li>
-                            <li>Informações: 
+                            <li><b>Id:</b> ${item._id}</li>
+                            <li><b>Nome:</b> ${item.name}</li>
+                            <li><b>Imagem:</b> <img src="${item.img}" alt="" width="150px"></li>
+                            <li><b>Preço:</b> R$ ${item.price},99</li>
+                            <li><b>Informações:</b> 
                               ${properties}</li>
                         </ul>
                         <br>

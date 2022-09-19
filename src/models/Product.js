@@ -24,12 +24,16 @@ const product = new Schema({
     type: Number,
     required: true
   },
-  description: {
+  category: {
+    type: String,
+    required: true
+  },
+  description: [
     // altura: {type: Number, required: false},
     // largura: {type: Number, required: false},
     // cor: {type: String, required: false},
     // nota: {type: Number},
-  }
+  ]
 })
 
 module.exports = mongoose.model('product', product);
