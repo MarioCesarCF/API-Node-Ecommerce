@@ -67,10 +67,14 @@
     }
 
     function ver() {
+        //mensagem de loading enquanto espera carregar as informações vidas do DB
+        const ul = document.querySelector('#tabela')
+        ul.innerHTML = "<h1>CARREGANDO!</h1>";
+
       fetch(`https://api-node-teste.herokuapp.com/product`)
         .then((response) => { return response.json() })
         .then((data) => {
-          const ul = document.querySelector('#tabela')
+          
           ul.innerHTML = "";
           
           data.data.forEach((item) => {
@@ -100,17 +104,20 @@
     function verUm() {
       const id_product = document.getElementById('id_product').value;
 
+      const ul = document.querySelector('#tabelaDeUm')
+      
+      ul.innerHTML = "<h1>CARREGANDO!</h1>";
+
       fetch(`https://api-node-teste.herokuapp.com/product/${id_product}`)
         .then((response) => { return response.json() })
         .then((data) => {
-          const ul = document.querySelector('#tabelaDeUm')
-          ul.innerHTML = "";
-
+          
+            ul.innerHTML = "";
             let properties = '';
             Object.entries(data.data.description).forEach(([key, value])=>{
               properties += `${key}: ${value} <br>`;
             });
-            console.log(properties)
+            
           ul.innerHTML += `
                     <div class="mostraProduto">
                         <ul class="mostra">
