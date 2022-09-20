@@ -14,12 +14,9 @@ require('dotenv').config();
 */
 
 //Conexão API de teste: mongodb+srv://MarioCesar:177500@restcluster.uc7clml.mongodb.net/produtos?retryWrites=true&w=majority
-const conection = async () => {
-  // const username = process.env.NODE_USERNAME;
-  // const password = process.env.NODE_PASSWORD;
-  // const host = process.env.NODE_HOST;
-  // const database = process.env.NODE_DB;
+const conection = async () => {  
   const URL = process.env.DATABASE_URL;
+  
   if(global.connection && global.connection.state !== 'disconnected') {
     return global.connection;
   }
