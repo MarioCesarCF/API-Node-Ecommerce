@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 
 const index = require('./routers/index');
 const productRoute = require('./routers/productRoute');
-const userRoute = require('./routers/userRoute');
+
 
 //importando classe LoginController
 const LoginController = require("./controllers/LoginController");
@@ -40,7 +40,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use('/', index);
 app.use('/product', productRoute);
-app.use('/user', userRoute);
+
 
 
 //criando um objeto da classe LoginController e passando a instancia do express como parametro
