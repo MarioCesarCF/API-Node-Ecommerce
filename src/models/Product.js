@@ -33,7 +33,7 @@ const product = new Schema({
   }    
 })
 
-// module.exports = mongoose.model('product', product);
+module.exports = mongoose.model('product', product);
 
 //Teste com model mais completo
 // const mongoose = require('mongoose')

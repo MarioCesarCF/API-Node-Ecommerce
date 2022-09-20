@@ -76,7 +76,7 @@
         .then((data) => {
           
           ul.innerHTML = "";
-          
+          console.log(data.data)
           data.data.forEach((item) => {
             let properties = '';
             Object.entries(item.description).forEach(([key, value])=>{
