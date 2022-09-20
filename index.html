@@ -70,7 +70,6 @@
                     console.log(e);
                 });
         }
-
         function ver() {
             //mensagem de loading enquanto espera carregar as informações vidas do DB
             const ul = document.querySelector('#tabela')
@@ -100,6 +99,53 @@
                         });
 
                         ul.innerHTML += `
+
+      };
+
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(update),
+      };
+
+      fetch(`https://api-node-teste.herokuapp.com/product`, options)
+        .then(data => {
+          if (!data.ok) {
+            throw Error(data.status);
+          }
+          return data.json();
+        })
+        .then(update => { console.log(update); })
+        .catch(e => { console.log(e); });
+    }
+
+    function ver() {
+        //mensagem de loading enquanto espera carregar as informações vidas do DB
+        const ul = document.querySelector('#tabela')
+        ul.innerHTML = "<h1>CARREGANDO!</h1>";
+
+      fetch(`https://api-node-teste.herokuapp.com/product`)
+        .then((response) => { return response.json() })
+        .then((data) => {
+          
+          ul.innerHTML = "";
+          console.log(data.data)
+          data.data.forEach((item) => {
+            let properties = '';
+            Object.entries(item.description).forEach(([key, value])=>{
+              //validação para mostrar apenas propriedades que tenha algum value.
+              if(!value) {
+                return
+              }
+              console.log(value)
+              //na linha abaixo as propriedades e valores são passados. Buscar meios mais interessantes de fazer isso.              
+              properties += `${key}: ${value} / `;
+            });
+            
+            ul.innerHTML += `
+
                     <div class="mostraProdutos">
                         <ul class="mostra">
                             <li><b>Id:</b> ${item._id}</li>
