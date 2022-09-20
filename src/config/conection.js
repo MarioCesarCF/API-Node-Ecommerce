@@ -12,6 +12,8 @@ require('dotenv').config();
 
   url de conexão `mongodb+srv://${username}:${password}@${host}/${database}?retryWrites=true&w=majority`
 */
+
+//Conexão API de teste: mongodb+srv://MarioCesar:177500@restcluster.uc7clml.mongodb.net/produtos?retryWrites=true&w=majority
 const conection = async () => {
   // const username = process.env.NODE_USERNAME;
   // const password = process.env.NODE_PASSWORD;
