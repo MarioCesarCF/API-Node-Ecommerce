@@ -2,94 +2,104 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <h1>formulario teste</h1>
-  <input type="text" placeholder="nome produto" id="nome">
-  <input type="text" placeholder="url img" id="img">
-  <input type="text" placeholder="preço" id="preço">
-  <input type="number" placeholder="polegadas" id="polegadas">
-  <input type="text" placeholder="cor" id="cor">
-  <input type="number" placeholder="nota" id="nota">
-  <input type="button" value="Cadastrar" onclick="cadastrar()">
-  <br>
-  <br>
-  <input type="button" value="Ver Produtos" onclick="ver()">
-  <ul id="tabela"></ul>
-  <br>
-  <br>
-  <input type="text" placeholder="Id" id="id_product">
-  <input type="button" value="Ver Produtos" onclick="verUm()">
-  <ul id="tabelaDeUm"></ul>
-  
-  <script>
-    function cadastrar() {
-      const nome = document.getElementById('nome');
-      const img = document.getElementById('img');
-      const preco = document.getElementById('preço');
-      const polegadas = document.getElementById('polegadas');
-      const cor = document.getElementById('cor');
-      const nota = document.getElementById('nota');
+    <h1>formulario teste</h1>
+    <input type="text" placeholder="nome produto" id="nome">
+    <input type="text" placeholder="url img" id="img">
+    <input type="text" placeholder="preço" id="preço">
+    <input type="number" placeholder="polegadas" id="polegadas">
+    <input type="text" placeholder="cor" id="cor">
+    <input type="number" placeholder="nota" id="nota">
+    <input type="button" value="Cadastrar" onclick="cadastrar()">
+    <br>
+    <br>
+    <input type="button" value="Ver Produtos" onclick="ver()">
+    <ul id="tabela"></ul>
+    <br>
+    <br>
+    <input type="text" placeholder="Id" id="id_product">
+    <input type="button" value="Ver Produtos" onclick="verUm()">
+    <ul id="tabelaDeUm"></ul>
 
-      const update = {
-        name: nome.value,
-        img: img.value,
-        price: preco.value,
-        description: {
-          polegadas: polegadas.value,
-          cor: cor.value,
-          nota: nota.value
+    <script>
+        function cadastrar() {
+            const nome = document.getElementById('nome');
+            const img = document.getElementById('img');
+            const preco = document.getElementById('preço');
+            const polegadas = document.getElementById('polegadas');
+            const cor = document.getElementById('cor');
+            const nota = document.getElementById('nota');
+
+            const update = {
+                name: nome.value,
+                img: img.value,
+                price: preco.value,
+                description: {
+                    polegadas: polegadas.value,
+                    cor: cor.value,
+                    nota: nota.value
+                }
+            };
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(update),
+            };
+
+            fetch(`https://api-node-teste.herokuapp.com/product`, options)
+                .then(data => {
+                    if (!data.ok) {
+                        throw Error(data.status);
+                    }
+                    return data.json();
+                })
+                .then(update => {
+                    console.log(update);
+                })
+                .catch(e => {
+                    console.log(e);
+                });
         }
-      };
 
-      const options = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(update),
-      };
+        function ver() {
+            //mensagem de loading enquanto espera carregar as informações vidas do DB
+            const ul = document.querySelector('#tabela')
+                //ul.innerHTML = "<h1>CARREGANDO!</h1>";
+                //ul.innerHTML = "<div class='loader loader1'></div>";
+            ul.innerHTML = "<div class='circle'></div><div class='circle-small'></div><div class='circle-big'></div><div class='circle-inner-inner'></div><div class='circle-inner'></div>";
 
-      fetch(`https://api-node-teste.herokuapp.com/product`, options)
-        .then(data => {
-          if (!data.ok) {
-            throw Error(data.status);
-          }
-          return data.json();
-        })
-        .then(update => { console.log(update); })
-        .catch(e => { console.log(e); });
-    }
 
-    function ver() {
-        //mensagem de loading enquanto espera carregar as informações vidas do DB
-        const ul = document.querySelector('#tabela')
-        ul.innerHTML = "<h1>CARREGANDO!</h1>";
+            fetch(`https://api-node-teste.herokuapp.com/product`)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
 
-      fetch(`https://api-node-teste.herokuapp.com/product`)
-        .then((response) => { return response.json() })
-        .then((data) => {
-          
-          ul.innerHTML = "";
-          
-          data.data.forEach((item) => {
-            let properties = '';
-            Object.entries(item.description).forEach(([key, value])=>{
-              //validação para mostrar apenas propriedades que tenha algum value.
-              if(!value) {
-                return
-              }
-              console.log(value)
-              //na linha abaixo as propriedades e valores são passados. Buscar meios mais interessantes de fazer isso.              
-              properties += `${key}: ${value} / `;
-            });
-            
-            ul.innerHTML += `
+                    ul.innerHTML = "";
+
+                    data.data.forEach((item) => {
+                        let properties = '';
+                        Object.entries(item.description).forEach(([key, value]) => {
+                            //validação para mostrar apenas propriedades que tenha algum value.
+                            if (!value) {
+                                return
+                            }
+                            console.log(value)
+                                //na linha abaixo as propriedades e valores são passados. Buscar meios mais interessantes de fazer isso.              
+                            properties += `${key}: ${value} / `;
+                        });
+
+                        ul.innerHTML += `
                     <div class="mostraProdutos">
                         <ul class="mostra">
                             <li><b>Id:</b> ${item._id}</li>
@@ -101,29 +111,37 @@
                         </ul>
                         <br>
                     </div>`
-          })
-        })
-        .catch(e => { console.log(e); });
-    }
+                    })
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        }
 
-    function verUm() {
-      const id_product = document.getElementById('id_product').value;
+        function verUm() {
+            const id_product = document.getElementById('id_product').value;
 
-      const ul = document.querySelector('#tabelaDeUm')
-      
-      ul.innerHTML = "<h1>CARREGANDO!</h1>";
+            const ul = document.querySelector('#tabelaDeUm')
 
-      fetch(`https://api-node-teste.herokuapp.com/product/${id_product}`)
-        .then((response) => { return response.json() })
-        .then((data) => {
-          
-            ul.innerHTML = "";
-            let properties = '';
-            Object.entries(data.data.description).forEach(([key, value])=>{
-              properties += `${key}: ${value} <br>`;
-            });
-            
-          ul.innerHTML += `
+            //ul.innerHTML = "<h1>CARREGANDO!</h1>";
+            ul.innerHTML = "<div class='circle'></div><div class='circle-small'></div><div class='circle-big'></div><div class='circle-inner-inner'></div><div class='circle-inner'></div>";
+
+
+
+
+            fetch(`https://api-node-teste.herokuapp.com/product/${id_product}`)
+                .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+
+                    ul.innerHTML = '';
+                    let properties = '';
+                    Object.entries(data.data.description).forEach(([key, value]) => {
+                        properties += `${key}: ${value} <br>`;
+                    });
+
+                    ul.innerHTML += `
                     <div class="mostraProduto">
                         <ul class="mostra">
                             <li>Id: ${data.data._id}</li>
@@ -133,11 +151,12 @@
                             <li>Data de Coleta: ${properties}</li>
                         </ul>
                     </div>`
-        })
-        .catch(e => { console.log(e); });
-    }
-
-  </script>
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        }
+    </script>
 </body>
 
 </html>
