@@ -13,8 +13,6 @@ require('dotenv').config();
   url de conexão `mongodb+srv://${username}:${password}@${host}/${database}?retryWrites=true&w=majority`
 */
 
-//Conexão API de teste: mongodb+srv://MarioCesar:177500@restcluster.uc7clml.mongodb.net/produtos?retryWrites=true&w=majority
-//Conexão URL do Rodrigo: mongodb+srv://userMario:177500@cluster0.6ogcejv.mongodb.net/Ecommerce?retryWrites=true&w=majority
 const conection = async () => {  
   const URL = process.env.DATABASE_URL;
   
