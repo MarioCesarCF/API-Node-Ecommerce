@@ -16,7 +16,8 @@
   <h2>Produtos</h2>
   <input type="text" placeholder="nome produto" id="nome">
   <input type="text" placeholder="url img" id="img">
-  <input type="text" placeholder="preço" id="preço">
+  <input type="text" placeholder="preço" id="preco">
+  <input type="text" placeholder="categoria" id="categoria">
   <input type="number" placeholder="polegadas" id="polegadas">
   <input type="text" placeholder="cor" id="cor">
   <input type="number" placeholder="nota" id="nota">
@@ -35,16 +36,17 @@
     function cadastrar() {
       const nome = document.getElementById('nome');
       const img = document.getElementById('img');
-      const preco = document.getElementById('preço');
+      const preco = document.getElementById('preco');
       const polegadas = document.getElementById('polegadas');
       const cor = document.getElementById('cor');
       const nota = document.getElementById('nota');
-
+      const categoria = document.getElementById('categoria');
 
       const update = {
         name: nome.value,
         img: img.value,
         price: preco.value,
+        category: categoria.value,
         description: {
           polegadas: polegadas.value,
           cor: cor.value,
@@ -60,19 +62,21 @@
         body: JSON.stringify(update),
       };
 
+      console.log(update)
+
       fetch(`https://api-node-teste.herokuapp.com/product`, options)
         .then(data => {
-          if (!data.ok) {
-            throw Error(data.status);
-          }
+          // if (!data.ok) {
+          //   throw Error(data.status);
+          // }
           return data.json();
         })
         .then(update => {
           console.log(update);
         })
-        .catch(e => {
-          console.log(e);
-        });
+        // .catch(e => {
+        //   console.log(e);
+        // });
     }
     function ver() {
       //mensagem de loading enquanto espera carregar as informações vidas do DB
