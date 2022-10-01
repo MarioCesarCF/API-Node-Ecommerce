@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 //importando ferramenta Schema
 const Schema = mongoose.Schema;
-
-
 const md5 = require('md5');
 
 // mensagem de erro para campos required
@@ -55,7 +53,7 @@ UsuarioSchema.pre('save', function (next) {
 });
 
 //importando o Schema para um model do mongoose
-const Usuario = mongoose.model('usuarios');
+const Usuario = mongoose.model('usuarios', UsuarioSchema);
 // sera criada uma collection com o nome usuarios no MOngoDB
 
 module.exports = Usuario;

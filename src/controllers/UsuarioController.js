@@ -12,8 +12,15 @@ class UsuarioController extends HttpController {
 
         try {
             
-        } catch (e) {
             
+        } catch (e) {
+            req.logger.error('Erro ao cadastrar usuário, error= ' + e.message);
+            res.logger.status(500).json({
+                erro: 'Falha ao cadastrar usuário, tente novamente!',
+                status: 500
+            });
         }
     }
 }
+
+module.exports = UsuarioController;
