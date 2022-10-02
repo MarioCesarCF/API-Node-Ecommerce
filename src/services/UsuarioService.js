@@ -2,6 +2,7 @@
 const UsuarioRepository = require('../database/repositories/impl/UsuarioRepBD');
 
 class UsuarioService {
+
     //lógica do cadastro do usuario
     async cadastrar(dadosUsuario) {
         //iniciando lista onde serão armazenados os erros encontrados durante o cadastro
@@ -58,6 +59,34 @@ class UsuarioService {
         }
 
         return retorno;
+    }
+
+    async deletar (idUsuario) {
+        const listaErros = [];
+        
+        //validando se foi passado o id do usuario que será deletado
+        if (!idUsuario) {
+            erros.push('Id do usuário é obrigatório!');
+        } else {
+            const usuarioBD = await UsuarioRepository.filtrarPorId(idUsuario);
+
+            //validando se retornou objeto usuarioBd do banco de dados
+            if (!usuarioBD) {
+                erros.push('Usuário não encontrado!');
+            }
+        }
+
+        //declarando objeto resposta com propriedade erros vazia por default
+        const resposta = {erros: null}
+
+        if (listaErros.length) {
+            resposta.erros = listaErros;
+        } else {
+            //caso não tenha erros, chama o método que vai realizar a deleção do usuário do BD
+            await UsuarioRepository.deletar(idUsuario);
+        }
+
+        return resposta;
     }
 }
 

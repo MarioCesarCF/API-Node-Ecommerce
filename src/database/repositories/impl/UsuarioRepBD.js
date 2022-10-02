@@ -46,6 +46,11 @@ class UsuarioRepBD {
         //se usuário não for encontrado retorna null
         return null;
     }
+
+    static deletar(idUsuario) {
+        //encontra o usuario com o id passado por parâmetro no BD e realiza a deleção
+        return Usuario.findByIdAndDelete(idUsuario);
+    }
 }
 
 //chama a arrow function do UsuarioRepository, passando a classe como parametro
