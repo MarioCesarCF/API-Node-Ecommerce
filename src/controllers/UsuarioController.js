@@ -1,14 +1,16 @@
-const HttpController = require('/HttpController');
+const HttpController = require('./HttpController');
 const UsuarioService = require('../services/UsuarioService');
 
 class UsuarioController extends HttpController {
     //implementando método da classe mãe
     configurarRota(Url) {
         //bind(this) - indica que o método cadastrar será chamado dentro do contexto da própria classe
-        this.express.post(`${Url}usuario`, this.cadastrar.bind(this));
+        this.express.post(`${Url}usuario`, this.cadastrarUsuario.bind(this));
+        this.express.get(`${Url}usuario/:id`, this.listarUsuario.bind(this));
+        this.express.delete(`${Url}usuario/:id`, this.deletarUsuario.bind(this));
     }
 
-    async cadastrar(req, res) {
+    async cadastrarUsuario(req, res) {
         const dadosUsuario = req.body;
 
         try {
@@ -39,7 +41,23 @@ class UsuarioController extends HttpController {
         }
     }
 
-    async deletar (req, res) {
+    async listarUsuario (req, res) {
+        try {
+            const service = new UsuarioService();
+            const usuario = await service.filtrar(req.params.id);
+
+            res.json(usuario);
+            
+        } catch (e) {
+            req.logger.error('Erro ao listar usuario, error= ' + e.message);
+            res.logger.status(500).json({
+                erro: 'Usuário não encontrado, tente novamente!',
+                status: 500
+            });
+        }
+    }
+
+    async deletarUsuario (req, res) {
         try {
             const service = new UsuarioService();
             const resposta = await service.deletar(req.params.id);

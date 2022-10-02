@@ -61,18 +61,41 @@ class UsuarioService {
         return retorno;
     }
 
+    async filtrar(idUsuario) {
+        const listaErros = [];
+        const usuarioBuscado = await UsuarioRepository.filtrarPorId(idUsuario);
+        //validando se foi passado o id do usuário
+        if (!idUsuario) {
+            listaErros.push('Id do usuário é obrigatório!');
+            //caso id do usuário não for encontrado no banco, retornará um erro
+        } else if (!usuarioBuscado){
+            listaErros.push('Usuário não encontrado!');                  
+        }
+
+        const retorno = {
+            erros: null,
+            usuario: null
+        }
+
+        if (listaErros.length) {
+            retorno.erros = listaErros;
+        } else {
+            retorno.usuario = usuarioBuscado;
+        }
+    }
+
     async deletar (idUsuario) {
         const listaErros = [];
         
         //validando se foi passado o id do usuario que será deletado
         if (!idUsuario) {
-            erros.push('Id do usuário é obrigatório!');
+            listaErros.push('Id do usuário é obrigatório!');
         } else {
             const usuarioBD = await UsuarioRepository.filtrarPorId(idUsuario);
 
             //validando se retornou objeto usuarioBd do banco de dados
             if (!usuarioBD) {
-                erros.push('Usuário não encontrado!');
+                listaErros.push('Usuário não encontrado!');
             }
         }
 
