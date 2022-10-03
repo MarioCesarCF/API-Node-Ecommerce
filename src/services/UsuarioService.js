@@ -1,10 +1,12 @@
 //importando implementação concreta do repository do usuario
 const UsuarioRepository = require('../database/repositories/impl/UsuarioRepBD');
 
-class UsuarioService {
+
+class UsuarioService { 
+    
 
     //lógica do cadastro do usuario
-    async cadastrar(dadosUsuario) {
+    async cadastrar(dadosUsuario) {       
         //iniciando lista onde serão armazenados os erros encontrados durante o cadastro
         const listaErros = [];
 
@@ -62,6 +64,7 @@ class UsuarioService {
     }
 
     async filtrar(idUsuario) {
+        console.log(idUsuario);
         const listaErros = [];
         const usuarioBuscado = await UsuarioRepository.filtrarPorId(idUsuario);
         //validando se foi passado o id do usuário
@@ -82,6 +85,7 @@ class UsuarioService {
         } else {
             retorno.usuario = usuarioBuscado;
         }
+        return retorno;
     }
 
     async deletar (idUsuario) {

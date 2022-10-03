@@ -19,7 +19,7 @@ const dadosFormatados = (usuarioBD) => {
 }
 
 class UsuarioRepBD {
-    static cadastrar(dadosUsuario) {
+    static cadastrar(dadosUsuario) {       
         //método create do mongoose vai tentar realizar o cadastro do usuario de acordo ao modelo
         return Usuario.create(dadosUsuario);
     }
@@ -38,10 +38,10 @@ class UsuarioRepBD {
 
     static async filtrarPorId(idUsuario) {
         //busca no BD usuario com id igual ao passado por parâmetro
-        const usuario = await Usuario.findById(idUsuario);
+        let usuario = await Usuario.find(idUsuario === usuarioBD.idUsuario);
         //caso usuario seja encontrado retorna um objeto com os seus dados formatados
         if (usuario) {
-            return dadosFormatados(usuario)
+            
         }
         //se usuário não for encontrado retorna null
         return null;
@@ -54,4 +54,4 @@ class UsuarioRepBD {
 }
 
 //chama a arrow function do UsuarioRepository, passando a classe como parametro
-module.exports = UsuarioRepository(UsuarioRepBD)
+module.exports = UsuarioRepository(UsuarioRepBD);

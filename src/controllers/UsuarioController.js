@@ -34,7 +34,7 @@ class UsuarioController extends HttpController {
             
         } catch (e) {
             req.logger.error('Erro ao cadastrar usuário, error= ' + e.message);
-            res.logger.status(500).json({
+            res.status(500).json({
                 status: 500,
                 erro: 'Falha ao cadastrar usuário, tente novamente!'
             });
@@ -50,7 +50,7 @@ class UsuarioController extends HttpController {
             
         } catch (e) {
             req.logger.error('Erro ao listar usuario, error= ' + e.message);
-            res.logger.status(500).json({
+            res.status(500).json({
                 erro: 'Usuário não encontrado, tente novamente!',
                 status: 500
             });

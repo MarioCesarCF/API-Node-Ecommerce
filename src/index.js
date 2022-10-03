@@ -30,6 +30,9 @@ app.use((req, res, next) => {
 
 const index = require('./routers/index');
 const productRoute = require('./routers/productRoute');
+const conection = require('./config/conection');
+
+conection();
 
 
 //importando controllers
