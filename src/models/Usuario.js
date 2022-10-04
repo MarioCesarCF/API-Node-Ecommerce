@@ -54,7 +54,7 @@ UsuarioSchema.pre('save', function (next) {
 });
 
 //importando o Schema para um model do mongoose
-const Usuario = mongoose.model('usuarios', UsuarioSchema);
+const Usuario = mongoose.model('users', UsuarioSchema);
 // sera criada uma collection com o nome usuarios no MOngoDB
 
 module.exports = Usuario;

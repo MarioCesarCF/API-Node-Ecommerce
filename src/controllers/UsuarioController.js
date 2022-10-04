@@ -15,14 +15,14 @@ class UsuarioController extends HttpController {
 
         try {
             const service = new UsuarioService();
-            const resposta = await service.cadastrar(dadosUsuario);
+            const retorno = await service.cadastrar(dadosUsuario);
 
             //verificar se houve erros durante o cadastro
-            if (resposta.erros) {
+            if (retorno.erros) {
                 return res.status(400).json({
                     status: 400,
                     //o joion vai transformar o array em uma string com os itens separados por virgula
-                    erro: resposta.erros.join(',')
+                    erro: retorno.erros.join(',')
                 });
             }
 
@@ -46,14 +46,14 @@ class UsuarioController extends HttpController {
             const service = new UsuarioService();
             const usuario = await service.filtrar(req.params.id);
 
-            if (resposta.erros) {
+            if (usuario.erros) {
                 return res.status(400).json({
-                    status: 400,
-                    erro: resposta.erros.join(',')
+                    status: 400, 
+                    erro: usuario.erros.join(',')
                 });
             }
 
-            req.logger.info(`Usuário encontrado: ${usuario}` );
+            req.logger.info('Usuário encontrado!');
             res.json(usuario);
             
         } catch (e) {

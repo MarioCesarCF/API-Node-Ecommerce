@@ -38,7 +38,8 @@ class UsuarioRepBD {
 
     static async filtrarPorId(idUsuario) {
         //busca no BD usuario com id igual ao passado por parâmetro
-        const usuario = await Usuario.find(idUsuario);
+        const usuario = await Usuario.findById(idUsuario);
+        console.log(usuario);
         //caso usuario seja encontrado retorna um objeto com os seus dados formatados
         if (usuario) {
             return dadosFormatados(usuario);
