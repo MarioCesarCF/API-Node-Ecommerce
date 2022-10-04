@@ -34,9 +34,12 @@ class LoginController extends HttpController {
                 });
             }
 
+            //método stringfy - transforma o objeto json em uma string
+            req.logger.info('Requisição de login realizada com sucesso!', 
+            `retorno = ${JSON.stringify(retorno)}`);
 
-
-            
+            //se a autenticação tiver sucesso envia o retorno
+            res.json(retorno);            
 
         } catch (e) {
             req.logger.error('Erro ao realizar login!, error= ' + e.message);
