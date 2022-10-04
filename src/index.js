@@ -15,10 +15,12 @@ exporta o app
 require("dotenv").config();
 const express = require('express');
 const cors = require('cors');
+const jwt = require('./middlewares/jwt');
 const app = express();
 
 
 app.use(cors());
+
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", '*');
@@ -41,22 +43,26 @@ const UsuarioController = require('./controllers/UsuarioController');
 //importando logger
 const logger = require('./middlewares/logger');
 
+//método que configura o express
 const configurarExpress = () => {
     app.use(logger);
-
+    
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
+    
+    app.use(jwt);
 
     app.use('/', index);
     app.use('/product', productRoute);
 }
 
+//método que vai carregar os controllers da aplicação
 const carregarControllers = () => {
     new LoginController(app);
     new UsuarioController(app);
 }
 
-// configurações do servidor que estavam no arquivo server.js
+// método conectarServidor - configurações do servidor que estavam no arquivo server.js
 const conectarServidor = () => {
     const porta = normalizaPort(process.env.PORT || 3030);
 
@@ -78,6 +84,7 @@ const conectarServidor = () => {
     })
 }
 
+// método iniciar chama os outros métodos
 const iniciar = () => {
     configurarExpress();
     carregarControllers(); 
