@@ -46,6 +46,14 @@ class UsuarioController extends HttpController {
             const service = new UsuarioService();
             const usuario = await service.filtrar(req.params.id);
 
+            if (resposta.erros) {
+                return res.status(400).json({
+                    status: 400,
+                    erro: resposta.erros.join(',')
+                });
+            }
+
+            req.logger.info(`Usuário encontrado: ${usuario}` );
             res.json(usuario);
             
         } catch (e) {
