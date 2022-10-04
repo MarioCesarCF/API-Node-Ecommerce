@@ -43,6 +43,7 @@ const UsuarioController = require('./controllers/UsuarioController');
 //importando logger
 const logger = require('./middlewares/logger');
 
+//método que configura o express
 const configurarExpress = () => {
     app.use(logger);
     
@@ -50,17 +51,18 @@ const configurarExpress = () => {
     app.use(express.urlencoded({extended: true}));
     
     app.use(jwt);
-    
+
     app.use('/', index);
     app.use('/product', productRoute);
 }
 
+//método que vai carregar os controllers da aplicação
 const carregarControllers = () => {
     new LoginController(app);
     new UsuarioController(app);
 }
 
-// configurações do servidor que estavam no arquivo server.js
+// método conectarServidor - configurações do servidor que estavam no arquivo server.js
 const conectarServidor = () => {
     const porta = normalizaPort(process.env.PORT || 3030);
 
@@ -82,6 +84,7 @@ const conectarServidor = () => {
     })
 }
 
+// método iniciar chama os outros métodos
 const iniciar = () => {
     configurarExpress();
     carregarControllers(); 
