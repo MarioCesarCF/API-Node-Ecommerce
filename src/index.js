@@ -30,23 +30,61 @@ app.use((req, res, next) => {
 
 const index = require('./routers/index');
 const productRoute = require('./routers/productRoute');
+const conection = require('./config/conection');
+
+conection();
 
 
-//importando classe LoginController
-const LoginController = require("./controllers/LoginController");
+//importando controllers
+const LoginController = require('./controllers/LoginController');
+const UsuarioController = require('./controllers/UsuarioController');
+//importando logger
+const logger = require('./middlewares/logger');
 
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+const configurarExpress = () => {
+    app.use(logger);
 
-app.use('/', index);
-app.use('/product', productRoute);
+    app.use(express.json());
+    app.use(express.urlencoded({extended: true}));
 
-
-
-//criando um objeto da classe LoginController e passando a instancia do express como parametro
-//a instancia do express será usada no método construtor herdado da classe mãe
-const carregarLogin = () => {
-    new LoginController(app);
+    app.use('/', index);
+    app.use('/product', productRoute);
 }
+
+const carregarControllers = () => {
+    new LoginController(app);
+    new UsuarioController(app);
+}
+
+// configurações do servidor que estavam no arquivo server.js
+const conectarServidor = () => {
+    const porta = normalizaPort(process.env.PORT || 3030);
+
+    function normalizaPort(valPort) {
+        const port = parseInt(valPort, 10);
+        if (isNaN(port)) {
+            return valPort;
+        }
+    
+        if (port >= 0) {
+            return valPort;
+        }
+    
+        return false;
+    }
+    
+    app.listen(porta, () => {
+        console.log(`App executando na porta ${porta}.`)
+    })
+}
+
+const iniciar = () => {
+    configurarExpress();
+    carregarControllers(); 
+    conectarServidor();  
+   
+}
+
+iniciar();
 
 module.exports = app;

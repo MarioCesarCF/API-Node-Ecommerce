@@ -10,12 +10,12 @@ class HttpController {
         //o mesmo poderá ser usado por todas as classes filhas
         this.express = instanciaExpress;
         //chamando o método configurar rota com atributo
-        this.configurarRota('/');
+        this.configurarRota();
         
     }
 
     //método deverá ser implementado nas classes filhas passando a rota como parâmetro
-    configurarRota(Url) {
+    configurarRota() {
         //apresenta mensagem de erro caso o método não for implementado na classe filha
         throw new Error ('Método configurarRota é obrigatório!') 
     }
