@@ -1,4 +1,5 @@
 //importando classe mãe (HttpControllers)
+const LoginService = require('../services/LoginService');
 const HttpController = require('./HttpController');
 
 class LoginController extends HttpController {
@@ -13,13 +14,27 @@ class LoginController extends HttpController {
             //autenticar login
             const body = req.body;
             //verifica se o body esta vazio ou se o usuário não digitou login ou senha
-            //**TODO: testar requisição conectado ao BD**
-            if (!body || !body.login || !body.senha) {
+            
+            if (!body || !body.login || !body.senhaConfirmada) {
+                req.logger.info('Requisição de login inválida!')
                 return res.status(401).json({
                     status: 401,
                     erro: "Parâmetros de entrada vazios ou inválidos!"
                 });
             }
+
+            const service = new LoginService();
+
+            const retorno = await service.logar(body.login, body.senhaConfirmada);
+
+            if (!retorno) {
+                return res.status(400).json({
+                    erro: 'Login ou senha inválidos!',
+                    status: 400
+                });
+            }
+
+
 
             
 
