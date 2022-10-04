@@ -4,10 +4,10 @@ const UsuarioRepository = require('../database/repositories/impl/UsuarioRepBD');
 
 class LoginService {
     //método para realizar o login deve ser público
-    async logar(login, senha) {
+    async logar(login, senhaConfirmada) {
         const filtro = {
             email: login,
-            senha: md5(senha)
+            senhaConfirmada: md5(senhaConfirmada)
         }
 
         //iniciando usuario com valor null

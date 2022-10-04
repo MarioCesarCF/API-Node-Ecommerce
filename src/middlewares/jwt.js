@@ -34,7 +34,7 @@ module.exports = (req, res, next) => {
 
     //método find - caso a rota e o método fizerem parte do array de rotas públicas, será atribuido a const
     const rotaPublica = rotasPublicas.find(rota => 
-        rota.url === req.url && rota.metodo === req.method.toUpperCAse());
+        rota.url === req.url && rota.metodo === req.method.toUpperCase());
 
     //quando a rota da requisição for publica vai entrar no if    
     if (rotaPublica) {

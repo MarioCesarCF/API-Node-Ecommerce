@@ -20,7 +20,7 @@ const app = express();
 
 
 app.use(cors());
-app.use(jwt);
+
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", '*');
@@ -45,10 +45,12 @@ const logger = require('./middlewares/logger');
 
 const configurarExpress = () => {
     app.use(logger);
-
+    
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
-
+    
+    app.use(jwt);
+    
     app.use('/', index);
     app.use('/product', productRoute);
 }
