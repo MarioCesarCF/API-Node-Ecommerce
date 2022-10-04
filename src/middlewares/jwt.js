@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const UsuarioRepository = require('../database/repositories/impl/UsuarioRepBD');
 
-//definindo lista de rotas públicas da aplicação
+//definindo lista de rotas e métodos públicos da aplicação
 const rotasPublicas = [
     {
         url: '/login',
