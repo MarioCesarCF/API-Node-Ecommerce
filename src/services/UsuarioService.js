@@ -64,7 +64,7 @@ class UsuarioService {
     }
 
     async filtrar(idUsuario) {
-        console.log(idUsuario);
+        
         const listaErros = [];
         const usuarioBuscado = await UsuarioRepository.filtrarPorId(idUsuario);
         //validando se foi passado o id do usuário
