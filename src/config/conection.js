@@ -14,12 +14,12 @@ require('dotenv').config();
 */
 
 const conection = async () => {  
-  const URL = process.env.DATABASE_URL;
+  const URL = process.env.DATABASE_URL || 'mongodb+srv://MarioCesar:177500@restcluster.uc7clml.mongodb.net/produtos?retryWrites=true&w=majority';
   
   if(global.connection && global.connection.state !== 'disconnected') {
     return global.connection;
   }
-  
+  console.log(URL)
   mongoose.connect(URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true

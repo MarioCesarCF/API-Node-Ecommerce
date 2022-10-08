@@ -4,6 +4,10 @@ const UsuarioRepository = require('../database/repositories/impl/UsuarioRepBD');
 //definindo lista de rotas e métodos públicos da aplicação
 const rotasPublicas = [
     {
+        url: '/',
+        metodo: 'GET'
+    },
+    {
         url: '/login',
         metodo: 'POST'
     },
@@ -27,6 +31,10 @@ const rotasPublicas = [
         url: '/usuario',
         metodo:'POST'
     },
+    {
+        url: '/favicon.ico',
+        metodo: 'GET'
+    }
 ];
 
 module.exports = (req, res, next) => {
