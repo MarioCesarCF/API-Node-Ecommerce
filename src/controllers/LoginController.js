@@ -1,11 +1,11 @@
-
 const LoginService = require('../services/LoginService');
 const HttpController = require('./HttpController');
 
 class LoginController extends HttpController {
     configurarRota() {
-        //método post - 1° parametro: rota/ 2°parametro: quem vai manipular a rota
+
         this.express.post('/login', this.login.bind(this));
+        //método post - 1° parametro: rota/ 2°parametro: quem vai manipular a rota        
     }
 
     async login(req, res) {
