@@ -8,6 +8,10 @@ const rotasPublicas = [
         metodo: 'GET'
     },
     {
+        url: '/favicon.ico',
+        metodo: 'GET'
+    },
+    {
         url: '/login',
         metodo: 'POST'
     },
