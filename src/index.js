@@ -15,7 +15,7 @@ exporta o app
 require("dotenv").config();
 const express = require('express');
 const cors = require('cors');
-const jwt = require('./middlewares/jwt');
+//const jwt = require('./middlewares/jwt');
 const app = express();
 
 const index = require('./routers/index');
@@ -40,7 +40,7 @@ const configurarExpress = () => {
     app.use(express.urlencoded({extended: true}));
 
     app.use(cors());
-    
+
     app.use((req, res, next) => {
         res.header("Access-Control-Allow-Origin", '*');
         res.header("Access-Control-Allow-Credentials", true);
@@ -49,7 +49,7 @@ const configurarExpress = () => {
         next();
     });
     
-    app.use(jwt);
+    //app.use(jwt);
 
     app.use('/', index);
     app.use('/product', productRoute);

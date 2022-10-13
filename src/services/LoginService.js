@@ -25,12 +25,12 @@ class LoginService {
         }
 
         //gera o token de acesso usando o JWT e atribui a constante token
-        const token = jwt.sign({_id: usuario.id}, process.env.CHAVE_SECRETA_JWT)
+        //const token = jwt.sign({_id: usuario.id}, process.env.CHAVE_SECRETA_JWT)
 
         //devolve as informações do usuário autenticado com o seu token de acesso
         return {
             ...usuario,
-            token
+            //token
         }
     }
 }
