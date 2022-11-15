@@ -63,32 +63,32 @@ const carregarControllers = () => {
 }
 
 // método conectarServidor - configurações do servidor que estavam no arquivo server.js
-const conectarServidor = () => {
-    const porta = normalizaPort(process.env.PORT || 3030);
+// const conectarServidor = () => {
+//     const porta = normalizaPort(process.env.PORT || 3030);
 
-    function normalizaPort(valPort) {
-        const port = parseInt(valPort, 10);
-        if (isNaN(port)) {
-            return valPort;
-        }
+//     function normalizaPort(valPort) {
+//         const port = parseInt(valPort, 10);
+//         if (isNaN(port)) {
+//             return valPort;
+//         }
     
-        if (port >= 0) {
-            return valPort;
-        }
+//         if (port >= 0) {
+//             return valPort;
+//         }
     
-        return false;
-    }
+//         return false;
+//     }
     
-    app.listen(porta, () => {
-        console.log(`App executando na porta ${porta}.`)
-    })
-}
+//     app.listen(porta, () => {
+//         console.log(`App executando na porta ${porta}.`)
+//     })
+// }
 
 // método iniciar chama os outros métodos
 const iniciar = () => {
     configurarExpress();
     carregarControllers(); 
-    conectarServidor();  
+    // conectarServidor();  
    
 }
 
