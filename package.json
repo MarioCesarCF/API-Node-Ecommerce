@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js",
-    "test": "mocha --timeout 10000"
+    "dev": "scripts start",
+    "start": "serve -s build",
+    "build": "scripts build",
+    "test": "scripts test --env =jsdom",
+    "eject": "scripts eject",
+    "heroku-postbuild": "npm run build"
   },
   "keywords": [],
   "author": "",
@@ -14,13 +17,14 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
-    "jsonwebtoken": "^8.5.1",
     "express": "^4.18.1",
-    "mongoose": "^6.5.3"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.3",
+    "serve": "^14.1.1"
   },
   "devDependencies": {
     "chai": "^4.3.6",
-    "chai-http": "^4.3.0",    
+    "chai-http": "^4.3.0",
     "md5": "^2.3.0",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.19"
