@@ -15,20 +15,8 @@ exporta o app
 require("dotenv").config();
 const express = require('express');
 const cors = require('cors');
-const jwt = require('./middlewares/jwt');
+//const jwt = require('./middlewares/jwt');
 const app = express();
-
-
-app.use(cors());
-
-
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", '*');
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-    next();
-});
 
 const index = require('./routers/index');
 const productRoute = require('./routers/productRoute');
@@ -45,12 +33,23 @@ const logger = require('./middlewares/logger');
 
 //método que configura o express
 const configurarExpress = () => {
+
     app.use(logger);
     
     app.use(express.json());
     app.use(express.urlencoded({extended: true}));
+
+    app.use(cors());
+
+    app.use((req, res, next) => {
+        res.header("Access-Control-Allow-Origin", '*');
+        res.header("Access-Control-Allow-Credentials", true);
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+        res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+        next();
+    });
     
-    app.use(jwt);
+    //app.use(jwt);
 
     app.use('/', index);
     app.use('/product', productRoute);

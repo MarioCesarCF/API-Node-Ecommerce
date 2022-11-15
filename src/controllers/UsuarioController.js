@@ -1,9 +1,11 @@
 const HttpController = require('./HttpController');
 const UsuarioService = require('../services/UsuarioService');
 
+
 class UsuarioController extends HttpController {
     //implementando método da classe mãe
     configurarRota() {
+
         //bind(this) - indica que o método cadastrar será chamado dentro do contexto da própria classe
         this.express.post('/usuario', this.cadastrarUsuario.bind(this));
         this.express.get('/usuario/:id', this.listarUsuario.bind(this));
