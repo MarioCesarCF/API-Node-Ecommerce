@@ -4,12 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "scripts start",
-    "start": "serve -s build",
-    "build": "scripts build",
-    "test": "scripts test --env =jsdom",
-    "eject": "scripts eject",
-    "heroku-postbuild": "npm run build"
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
+    "test": "mocha --timeout 10000"
   },
   "keywords": [],
   "author": "",

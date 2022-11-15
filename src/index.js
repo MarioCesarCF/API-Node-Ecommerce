@@ -97,7 +97,5 @@ module.exports = app;
 
 
 /*
-    "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js",
-    "test": "mocha --timeout 10000"
+    
 */
